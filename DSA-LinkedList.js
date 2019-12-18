@@ -10,6 +10,46 @@ class LinkedList {
     this.head = null;
   }
 
+  insertBefore(key, item) {
+    // Start at the head
+    let currNode = this.head;
+    // If the list is empty
+    if (!this.head) {
+      return null;
+    }
+    // Check for the item
+    while (currNode.value !== key) {
+      if (currNode.next === null) {
+        return null;
+      } else {
+        // Otherwise, keep looking
+        currNode = currNode.next;
+      }
+    }
+    let newNode = new _Node(item, currNode.next);
+    currNode.next = newNode;
+  }
+
+  insertAfter(key, item) {
+    // Start at the head
+    let currNode = this.head;
+    // If the list is empty
+    if (!this.head) {
+      return null;
+    }
+    // Check for the item
+    while (currNode.value !== key) {
+      if (currNode.next === null) {
+        return null;
+      } else {
+        // Otherwise, keep looking
+        currNode = currNode.next;
+      }
+    }
+    let newNode = new _Node(item, currNode.next);
+    currNode.next = newNode;
+  }
+
   insertFirst(item) {
     this.head = new _Node(item, this.head);
   }
@@ -23,6 +63,23 @@ class LinkedList {
         tempNode = tempNode.next;
       }
       tempNode.next = new _Node(item, null);
+    }
+  }
+
+  findLast() {
+    let currNode = this.head;
+    // If the list is empty
+    if (!this.head) {
+      return null;
+    }
+    // Check for the item
+    while (currNode.next !== null) {
+      if (currNode.next === null) {
+        return currentNode;
+      } else {
+        // Otherwise, keep looking
+        currNode = currNode.next;
+      }
     }
   }
 
@@ -75,3 +132,44 @@ class LinkedList {
     previousNode.next = currNode.next;
   }
 }
+
+const display = linkedList => {
+  console.log(linkedList);
+};
+
+const size = linkedList => {
+  let currentNode = linkedList.head;
+  let count = 0;
+  while (currentNode.next !== null) {
+    currentNode = currentNode.next;
+    count++;
+  }
+  return count;
+};
+
+const isEmpty = linkedList => {
+  if (linkedList.head === null) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+const main = () => {
+  const SLL = new LinkedList();
+
+  SLL.insertFirst("Apollo");
+  SLL.insertFirst("Boomer");
+  SLL.insertLast("Helo");
+  SLL.insertLast("Husker");
+  SLL.insertLast("Starbuck");
+  SLL.insertLast("Tauhida");
+  SLL.remove("Boomer");
+  SLL.find("Helo");
+  SLL.insertBefore("Boomer", "Athena");
+  display(SLL);
+  console.log(isEmpty(SLL));
+  console.log(size(SLL));
+};
+
+main();
